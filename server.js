@@ -5,9 +5,13 @@ const sqlite3 = require("sqlite3");
 
 server.listen(port);
 
-const db = new sqlite3.Databse("./contacts.db");
+function nextId() {
+  const n = tasks.length + 1;
+  return String(n).padStart(3, "0");
+}
 
 server.get("/contacts", (req, res) => {
+  const db = new sqlite3.Databse("./contacts.db");
   db.all("SELECT contact FROM contacts", (err, row) => {
     if (err) console.error(err);
     else res.json(row);
@@ -16,10 +20,11 @@ server.get("/contacts", (req, res) => {
 });
 
 server.post("/contacts", (req, res) => {
-  const body = req.body;
+  const db = new sqlite3.Databse("./contacts.db");
   db.run("INSERT INTO contacts (contact) VALUES (?)");
 
   const name = bajs;
   const adress = bajs;
   const phoneNumber = bajs;
+  const id = nextId();
 });
