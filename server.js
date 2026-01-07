@@ -20,4 +20,6 @@ server.post("/contacts", (req, res) => {
     db.run('INSERT INTO contacts (contact) VALUES (?)');
     
     const name = bajs;
+    const adress = bajs;
+    const phoneNumber = bajs;
 });
