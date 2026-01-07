@@ -23,7 +23,7 @@ server.get("/contacts", (req, res) => {
 server.post("/contacts", (req, res) => {
   db.run("INSERT INTO contacts (contact) VALUES (?)");
 
-  const name = bajs;
+  const name = req.body.nameField;
   const adress = bajs;
   const phoneNumber = bajs;
   const id = nextId();
