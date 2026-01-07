@@ -3,22 +3,22 @@ const express = require("express");
 const server = express();
 const sqlite3 = require("sqlite3");
 
+server.use(express.json());
 server.listen(port);
 
 const db = new sqlite3.Database("./contacts.db");
 
-function nextId() {
-  const n = contacts.length + 1;
-  return String(n).padStart(3, "0");
-}
-
-server.get("/contacts", (req, res) => {
-  db.all("SELECT * FROM contacts", (err, row) => {
-    if (err) console.error(err);
-    else res.json(row);
-    db.close();
-  });
-});
+db.run(
+  `CREATE TABLE IF NOT EXISTS contacts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    firstName TEXT NOT NULL,
+    lastName TEXT NOT NULL,
+    phone TEXT NOT NULL,
+    address TEXT,
+    postalCode TEXT,
+    city TEXT,
+    category TEXT NOT NULL)`
+  );
 
 server.get("/contacts", (req, res) => {
   db.all(
@@ -27,7 +27,7 @@ server.get("/contacts", (req, res) => {
       firstName,
       lastName,
       phone,
-      street,
+      address,
       postalCode,
       city,
       category
@@ -41,22 +41,16 @@ server.get("/contacts", (req, res) => {
 });
 
 server.post("/contacts", (req, res) => {
-  db.run("INSERT INTO contacts (contact) VALUES (?)");
+  const { firstName, lastName, phone, address, postalCode, city, category } = req.body;
 
-  const name = req.body.nameField;
-  const adress = bajs;
-  const phoneNumber = bajs;
-  const id = nextId();
-  const category = {
-    familj,
-    vän,
-    jobb
-  };
+  db.run(
+    "INSERT INTO contacts (firstName, lastName, phone, address, postalCode, city, category) VALUES (?, ?, ?, ?, ?, ?, ?)",
+    [firstName, lastName, phone, address, postalCode, city, category],
+    function (err) {
+      if (err) return res.status(500).json({ error: "Database error" });
 
-  const contact = {
-    name,
-    adress,
-    phoneNumber,
-    category
-  };
+      // this.lastID = id som SQLite skapade
+      res.status(201).json({ message: "Kontakt skapad", id: this.lastID });
+    }
+  );
 });
