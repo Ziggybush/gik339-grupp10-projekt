@@ -8,12 +8,30 @@
 </head>
 <body>
     <header>
-        <h1>Min manslukerska</h1>
+        <h1>Min Adressbok</h1>
     </header>
     <main>
-
+        <h2>Skapa ny kontakt</h2>
+        <label for="firstName">Förnamn</label>
+        <input type="text" name="fistName" id="firstName" class="textField" />
+        <label for="lastName">Efternamn</label>
+        <input type="text" name="lastName" id="lastName" class="textField" />
+        <label for="phone">Telefon-nummer</label>
+        <input type="text" name="phone" id="phone" class="textField" />
+        <label for="address">Adress</label>
+        <input type="text" name="address" id="address" class="textField" />
+        <label for="postCode">Postadress</label>
+        <input type="text" name="postCode" id="postCode" class="textField" />
+        <label for="city">Stad</label>
+        <input type="text" name="city" id="city" class="textField" />
+        <label for="chategory">Chategory</label>
+        <select name="chategory" id="chategory">
+            <option value="">--Please choose an option--</option>
+            <option value="family">Family</option>
+            <option value="friends">Friends</option>
+            <option value="work">Work</option>
+        </select>
     </main>
-
     <script src="script.js"></script>
 </body>
 </html>
