@@ -3,7 +3,9 @@ const express = require("express");
 const server = express();
 const sqlite3 = require("sqlite3");
 
-server.use(express.json());
+const path = require("path");
+
+server.use(express.static(path.join(__dirname, "public")));
 server.listen(port);
 
 const db = new sqlite3.Database("./contacts.db");
