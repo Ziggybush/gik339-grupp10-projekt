@@ -1,43 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
     <title>Min adressbok</title>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <h1>Min Adressbok</h1>
+      <h1>Min Adressbok</h1>
+      <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"
+      ></script>
     </header>
     <main>
-        <form id="newContactForm">
-            <h2>Skapa ny kontakt</h2>
-            <label for="firstName">Förnamn</label>
-            <input type="text" name="firstName" id="firstName" class="textField" />
-            <label for="lastName">Efternamn</label>
-            <input type="text" name="lastName" id="lastName" class="textField" />
-            <label for="phone">Telefon-nummer</label>
-            <input type="text" name="phone" id="phone" class="textField" />
-            <label for="address">Adress</label>
-            <input type="text" name="address" id="address" class="textField" />
-            <label for="postCode">Postadress</label>
-            <input type="text" name="postCode" id="postCode" class="textField" />
-            <label for="city">Stad</label>
-            <input type="text" name="city" id="city" class="textField" />
-            <label for="category">Kategori</label>
-            <select name="category" id="category">
-                <option value="family">Familj</option>
-                <option value="friends">Vänner</option>
-                <option value="work">Arbete</option>
-            </select>
-            <button type="submit">Spara</button>
-        </form>
+      <form id="newContactForm">
+        <h2>Skapa ny kontakt</h2>
+        <label for="firstName">Förnamn</label>
+        <input type="text" name="firstName" id="firstName" class="textField" />
+        <label for="lastName">Efternamn</label>
+        <input type="text" name="lastName" id="lastName" class="textField" />
+        <label for="phone">Telefon-nummer</label>
+        <input type="text" name="phone" id="phone" class="textField" />
+        <label for="address">Adress</label>
+        <input type="text" name="address" id="address" class="textField" />
+        <label for="postCode">Postadress</label>
+        <input type="text" name="postCode" id="postCode" class="textField" />
+        <label for="city">Stad</label>
+        <input type="text" name="city" id="city" class="textField" />
+        <label for="category">Kategori</label>
+        <select name="category" id="category">
+          <option value="family">Familj</option>
+          <option value="friends">Vänner</option>
+          <option value="work">Arbete</option>
+        </select>
+        <button type="submit">Spara</button>
+      </form>
     </main>
     <section>
-        <ul id="AddressList">
-        </ul>
+      <ul id="AddressList"></ul>
     </section>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
