@@ -14,7 +14,7 @@ form.addEventListener("submit", async (e) => {
         category: form.category.value,
     };
 
-    await fetch("/add", {
+    await fetch("/contacts", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
@@ -25,10 +25,14 @@ form.addEventListener("submit", async (e) => {
 });
 
 async function loadData() {
-  const res = await fetch("/data");
+  const res = await fetch("/contacts");
+  if (!res.ok) {
+    console.error("Fetch failed");
+    return;
+  }
   const items = await res.json();
 
-list.innerHTML = "";
+  list.innerHTML = "";
   items.forEach(item => {
     const li = document.createElement("li");
 
