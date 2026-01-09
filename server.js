@@ -56,3 +56,16 @@ server.post("/contacts", (req, res) => {
     }
   );
 });
+
+server.put("/contacts/:id", (req, res) => {
+  const { id, firstName, lastName, phone, address, postalCode, city, category } = req.body;
+  db.run(`UPDATE contacts SET (firstName, lastName, phone, address, postalCode, city, category) VALUES (?, ?, ?, ?, ?, ?, ?) WHERE id = ?`,
+    [firstName, lastName, phone, address, postalCode, city, category, id],
+    function (err) {
+      if (err) return res.status(500).json({ error: "Database error" });
+      res.status(201).json({ message: "Kontakt uppdaterad", id: this.lastID });
+    }
+  );
+});
+
+server.delete("/contacts/:id", (req, res) => {
