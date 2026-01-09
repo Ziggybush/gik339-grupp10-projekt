@@ -50,8 +50,14 @@ async function loadData() {
     const pCity = document.createElement("p");
     pCity.textContent = `${item.city} – ${item.postCode}`;
 
+    const editButton = document.createElement("button");
+    editButton.textContent = "Redigera";
+
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Ta bort";
+
     // Lägg in allt i li
-    li.append(h3, pPhone, pAddress, pCity);
+    li.append(h3, pPhone, pAddress, pCity, editButton, deleteButton);
     list.appendChild(li);
   });
 }
