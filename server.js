@@ -1,7 +1,7 @@
 const port = process.env.PORT || 3000;
 const express = require("express");
 const server = express();
-const sqlite3 = require("sqlite3");
+const sqlite3 = require("sqlite3").verbose();
 
 const path = require("path");
 
@@ -43,6 +43,9 @@ server.get("/contacts", (req, res) => {
   );
 });
 
+server.get("/contacts/:id", (req, res) => {
+  db.
+
 server.post("/contacts", (req, res) => {
   const { firstName, lastName, phone, address, postCode, city, category } = req.body;
 
@@ -58,13 +61,13 @@ server.post("/contacts", (req, res) => {
   );
 });
 
-server.put("/contacts/:id", (req, res) => {
+server.put("/contacts", (req, res) => {
   const { id, firstName, lastName, phone, address, postCode, city, category } = req.body;
-  db.run(`UPDATE contacts SET (firstName, lastName, phone, address, postCode, city, category) VALUES (?, ?, ?, ?, ?, ?, ?) WHERE id = ?`,
+  db.run(`UPDATE contacts SET firstName = ?, lastName = ?, phone = ?, address = ?, postCode = ?, city = ?, category = ? WHERE id = ?`,
     [firstName, lastName, phone, address, postCode, city, category, id],
     function (err) {
       if (err) return res.status(500).json({ error: "Database error" });
-      res.status(201).json({ message: "Kontakt uppdaterad", id: this.lastID });
+      res.status(200).json({ message: "Kontakt uppdaterad", id: this.lastID });
     }
   );
 });
@@ -74,5 +77,5 @@ server.delete("/contacts/:id", (req, res) => {
     if (err) return res.status(500).json({ error: "Database error" });
     res.status(200).json({ message: "Kontakt borttagen" });
   }
-);
+  );
 });
