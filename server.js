@@ -1,11 +1,16 @@
+/* Anger vilken port servern skal lyssna på */
 const port = process.env.PORT || 3000;
+/* Importerar express biblioteket */
 const express = require("express");
+/*Skapar en HTTP-server som kan hantera HTTP-förfrågningar */
 const server = express();
+/* Importerar sqlite3 biblioteket */
 const sqlite3 = require("sqlite3").verbose();
-
+/* Importerar path biblioteket för att hantera filvägar */
 const path = require("path");
-
+/* Berättar för servern att den ska kunna hantera JSON-data i request body */
 server.use(express.json());
+/* Bygger en korrekt sökväg till mappen "public" för att servera statiska filer */
 server.use(express.static(path.join(__dirname, "public")));
 server.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
