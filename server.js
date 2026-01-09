@@ -23,7 +23,7 @@ db.run(
     postCode TEXT,
     city TEXT,
     category TEXT NOT NULL)`
-  );
+);
 
 server.get("/contacts", (req, res) => {
   db.all(
@@ -37,8 +37,7 @@ server.get("/contacts", (req, res) => {
       city,
       category
      FROM contacts`,
-    (err, rows) => 
-    {
+    (err, rows) => {
       if (err) return res.status(500).json({ error: "Database error" });
       else res.json(rows);
     }
@@ -57,18 +56,20 @@ server.get("/contacts/:id", (req, res) => {
      city,
      category
     FROM contacts
-    WHERE id = ?`, 
-   [req.params.id],
-   (err, row) => {
-    if (err) return res.status(500).json({ error: "Databas error"});
-    if (!row) return res.status(404).json({ message: "Kontakt hittades inte"})
-    res.json(row);
-   }
+    WHERE id = ?`,
+    [req.params.id],
+    (err, row) => {
+      if (err) return res.status(500).json({ error: "Databas error" });
+      if (!row)
+        return res.status(404).json({ message: "Kontakt hittades inte" });
+      res.json(row);
+    }
   );
 });
 
 server.post("/contacts", (req, res) => {
-  const { firstName, lastName, phone, address, postCode, city, category } = req.body;
+  const { firstName, lastName, phone, address, postCode, city, category } =
+    req.body;
 
   db.run(
     "INSERT INTO contacts (firstName, lastName, phone, address, postCode, city, category) VALUES (?, ?, ?, ?, ?, ?, ?)",
@@ -83,8 +84,10 @@ server.post("/contacts", (req, res) => {
 });
 
 server.put("/contacts", (req, res) => {
-  const { id, firstName, lastName, phone, address, postCode, city, category } = req.body;
-  db.run(`UPDATE contacts SET firstName = ?, lastName = ?, phone = ?, address = ?, postCode = ?, city = ?, category = ? WHERE id = ?`,
+  const { id, firstName, lastName, phone, address, postCode, city, category } =
+    req.body;
+  db.run(
+    `UPDATE contacts SET firstName = ?, lastName = ?, phone = ?, address = ?, postCode = ?, city = ?, category = ? WHERE id = ?`,
     [firstName, lastName, phone, address, postCode, city, category, id],
     function (err) {
       if (err) return res.status(500).json({ error: "Databas error" });
@@ -94,10 +97,8 @@ server.put("/contacts", (req, res) => {
 });
 
 server.delete("/contacts/:id", (req, res) => {
-  db.run(`DELETE FROM contacts WHERE id =?`, [req.params.id], 
-    function (err) {
-      if (err) return res.status(500).json({ error: "Databas error" });
-      res.status(200).json({ message: "Kontakt borttagen" });
-    }
-  );
+  db.run(`DELETE FROM contacts WHERE id =?`, [req.params.id], function (err) {
+    if (err) return res.status(500).json({ error: "Databas error" });
+    res.status(200).json({ message: "Kontakt borttagen" });
+  });
 });
