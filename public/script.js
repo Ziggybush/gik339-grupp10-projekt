@@ -6,8 +6,6 @@ const list = document.getElementById("AddressList");
 
 let editingId = null;
 
-let editingId = null;
-
 /* Skapar en event listener för formulärets submit-event som hanterar inskickning av nya kontakter samt stopar att sidan laddas om */
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -27,18 +25,16 @@ form.addEventListener("submit", async (e) => {
   const method = editingId ? "PUT" : "POST";
   const url = editingId ? `/contacts/${editingId}` : "/contacts";
 
+    
+/* Skapar en post route till backend-endpoint /contacts och skickar det i JSON-format */
     await fetch(url, {
     method,
-/* Skapar en post route till backend-endpoint /contacts och skickar det i JSON-format */
-    await fetch("/contacts", {
-    method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
 
-  editingId = null;
-  
   /* Rensar formuläret efter inskickning och använder loadData för att uppdatera listan */
+  editingId = null;
   form.reset();
   loadData();
 });
