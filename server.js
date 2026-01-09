@@ -7,7 +7,9 @@ const path = require("path");
 
 server.use(express.json());
 server.use(express.static(path.join(__dirname, "public")));
-server.listen(port);
+server.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
+});
 
 const db = new sqlite3.Database("./contacts.db");
 
@@ -43,7 +45,27 @@ server.get("/contacts", (req, res) => {
   );
 });
 
-server.get("/contacts/:id", (req, res) => {});
+server.get("/contacts/:id", (req, res) => {
+  db.get(
+    `SELECT
+     id,
+     firstName,
+     lastName,
+     phone,
+     address,
+     postCode,
+     city,
+     category
+    FROM contacts
+    WHERE id = ?`, 
+   [req.params.id],
+   (err, row) => {
+    if (err) return res.status(500).json({ error: "Databas error"});
+    if (!row) return res.status(404).json({ message: "Kontakt hittades inte"})
+    res.json(row);
+   }
+  );
+});
 
 server.post("/contacts", (req, res) => {
   const { firstName, lastName, phone, address, postCode, city, category } = req.body;
@@ -52,7 +74,7 @@ server.post("/contacts", (req, res) => {
     "INSERT INTO contacts (firstName, lastName, phone, address, postCode, city, category) VALUES (?, ?, ?, ?, ?, ?, ?)",
     [firstName, lastName, phone, address, postCode, city, category],
     function (err) {
-      if (err) return res.status(500).json({ error: "Database error" });
+      if (err) return res.status(500).json({ error: "Databas error" });
 
       // this.lastID = id som SQLite skapade
       res.status(201).json({ message: "Kontakt skapad", id: this.lastID });
@@ -65,7 +87,7 @@ server.put("/contacts", (req, res) => {
   db.run(`UPDATE contacts SET firstName = ?, lastName = ?, phone = ?, address = ?, postCode = ?, city = ?, category = ? WHERE id = ?`,
     [firstName, lastName, phone, address, postCode, city, category, id],
     function (err) {
-      if (err) return res.status(500).json({ error: "Database error" });
+      if (err) return res.status(500).json({ error: "Databas error" });
       res.status(200).json({ message: "Kontakt uppdaterad", id: this.lastID });
     }
   );
@@ -74,7 +96,7 @@ server.put("/contacts", (req, res) => {
 server.delete("/contacts/:id", (req, res) => {
   db.run(`DELETE FROM contacts WHERE id =?`, [req.params.id], 
     function (err) {
-      if (err) return res.status(500).json({ error: "Database error" });
+      if (err) return res.status(500).json({ error: "Databas error" });
       res.status(200).json({ message: "Kontakt borttagen" });
     }
   );

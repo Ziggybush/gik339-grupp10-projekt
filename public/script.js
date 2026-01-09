@@ -34,12 +34,12 @@ async function loadData() {
   }
   const items = await res.json();
 
-  list.innerHTML = "";
+  list.innerHTML = "<li>TEST</li>";
   items.forEach(item => {
     const li = document.createElement("li");
 
     const h3 = document.createElement("h3");
-    h3.textContent = `${item.firstName} – ${item.lastName}`;
+    h3.textContent = `${item.firstName} ${item.lastName}`;
 
     const pPhone = document.createElement("p");
     pPhone.textContent = `Nummer: ${item.phone}`;
