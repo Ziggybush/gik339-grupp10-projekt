@@ -7,7 +7,9 @@ const path = require("path");
 
 server.use(express.json());
 server.use(express.static(path.join(__dirname, "public")));
-server.listen(port);
+server.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
+});
 
 const db = new sqlite3.Database("./contacts.db");
 

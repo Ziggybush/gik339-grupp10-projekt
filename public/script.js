@@ -39,7 +39,7 @@ async function loadData() {
     const li = document.createElement("li");
 
     const h3 = document.createElement("h3");
-    h3.textContent = `${item.firstName} – ${item.lastName}`;
+    h3.textContent = `${item.firstName} ${item.lastName}`;
 
     const pPhone = document.createElement("p");
     pPhone.textContent = `Nummer: ${item.phone}`;
