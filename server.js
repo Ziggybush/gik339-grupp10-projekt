@@ -70,3 +70,9 @@ server.put("/contacts/:id", (req, res) => {
 });
 
 server.delete("/contacts/:id", (req, res) => {
+  db.run(`DELETE FROM contacts WHERE id =?`, [req.params.id], function (err) {
+    if (err) return res.status(500).json({ error: "Database error" });
+    res.status(200).json({ message: "Kontakt borttagen" });
+  }
+);
+});
