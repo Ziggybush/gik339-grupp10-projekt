@@ -1,3 +1,5 @@
+console.log("Script loaded")
+
 const form = document.getElementById("newContactForm");
 const list = document.getElementById("AddressList");
 
