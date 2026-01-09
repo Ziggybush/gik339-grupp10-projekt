@@ -34,7 +34,7 @@ async function loadData() {
   }
   const items = await res.json();
 
-  list.innerHTML = "";
+  list.innerHTML = "<li>TEST</li>";
   items.forEach(item => {
     const li = document.createElement("li");
 
