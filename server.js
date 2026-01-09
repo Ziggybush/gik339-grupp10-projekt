@@ -43,8 +43,7 @@ server.get("/contacts", (req, res) => {
   );
 });
 
-server.get("/contacts/:id", (req, res) => {
-  db.
+server.get("/contacts/:id", (req, res) => {});
 
 server.post("/contacts", (req, res) => {
   const { firstName, lastName, phone, address, postCode, city, category } = req.body;
@@ -73,9 +72,10 @@ server.put("/contacts", (req, res) => {
 });
 
 server.delete("/contacts/:id", (req, res) => {
-  db.run(`DELETE FROM contacts WHERE id =?`, [req.params.id], function (err) {
-    if (err) return res.status(500).json({ error: "Database error" });
-    res.status(200).json({ message: "Kontakt borttagen" });
-  }
+  db.run(`DELETE FROM contacts WHERE id =?`, [req.params.id], 
+    function (err) {
+      if (err) return res.status(500).json({ error: "Database error" });
+      res.status(200).json({ message: "Kontakt borttagen" });
+    }
   );
 });
