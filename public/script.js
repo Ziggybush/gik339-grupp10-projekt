@@ -1,4 +1,4 @@
-console.log("Script loaded")
+console.log("Script loaded");
 
 /* Skapar variabler för formuläret och listan */
 const form = document.getElementById("newContactForm");
@@ -6,39 +6,33 @@ const list = document.getElementById("AddressList");
 
 let editingId = null;
 
-let editingId = null;
-
 /* Skapar en event listener för formulärets submit-event som hanterar inskickning av nya kontakter samt stopar att sidan laddas om */
 form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-/* Hämtar värden från formuläret som ska skickas till servern */
-    const data = {
-        firstName: form.firstName.value,
-        lastName: form.lastName.value,
-        phone: form.phone.value,
-        address: form.address.value,
-        postCode: form.postCode.value,
-        city: form.city.value,
-        category: form.category.value,
- 
-    };
+  /* Hämtar värden från formuläret som ska skickas till servern */
+  const data = {
+    firstName: form.firstName.value,
+    lastName: form.lastName.value,
+    phone: form.phone.value,
+    address: form.address.value,
+    postCode: form.postCode.value,
+    city: form.city.value,
+    category: form.category.value,
+  };
 
   const method = editingId ? "PUT" : "POST";
   const url = editingId ? `/contacts/${editingId}` : "/contacts";
 
-    await fetch(url, {
+  /* Skapar en post route till backend-endpoint /contacts och skickar det i JSON-format */
+  await fetch(url, {
     method,
-/* Skapar en post route till backend-endpoint /contacts och skickar det i JSON-format */
-    await fetch("/contacts", {
-    method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
 
-  editingId = null;
-  
   /* Rensar formuläret efter inskickning och använder loadData för att uppdatera listan */
+  editingId = null;
   form.reset();
   loadData();
 });
@@ -55,21 +49,19 @@ async function loadData() {
   list.innerHTML = "";
   list.className = "list-group";
 
-  items.forEach(item => {
+  items.forEach((item) => {
     const li = document.createElement("li");
     li.className = "list-group-item";
 
     const card = document.createElement("div");
     card.className = "card";
 
-    if(item.category === "family"){
-      card.classList.add("bg-success-subtle")
-    }
-    else if(item.category === "friends"){
-      card.classList.add("bg-warning-subtle")
-    }
-    else if(item.category === "work"){
-      card.classList.add("bg-danger-subtle")
+    if (item.category === "family") {
+      card.classList.add("bg-success-subtle");
+    } else if (item.category === "friends") {
+      card.classList.add("bg-warning-subtle");
+    } else if (item.category === "work") {
+      card.classList.add("bg-danger-subtle");
     }
 
     const cardBody = document.createElement("div");
@@ -92,7 +84,7 @@ async function loadData() {
     buttonGroup.className = "d-flex gap-2";
 
     const editButton = document.createElement("button");
-    editButton.className = "btn btn-sm btn-warning"
+    editButton.className = "btn btn-sm btn-warning";
     editButton.textContent = "Redigera";
 
     editButton.addEventListener("click", () => {
@@ -114,7 +106,7 @@ async function loadData() {
       if (!confirm("Ta bort kontakten?")) return;
       await fetch(`/contacts/${item.id}`, { method: "DELETE" });
       loadData();
-    });   
+    });
 
     buttonGroup.append(editButton, deleteButton);
     cardBody.append(h5, pPhone, pAddress, pCity, buttonGroup);
