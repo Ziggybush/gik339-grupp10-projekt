@@ -12,17 +12,17 @@
     />
     <title>Min adressbok</title>
   </head>
-  <body>
-    <header>
+  <body class="container-md">
+    <header class="d-flex justify-content-center my-3">
       <h1>Min Adressbok</h1>
     </header>
-    <main>
-      <div class="p-3 mb-4 rounded bg-primary-subtle">
-        <h2 class="mb-0">Skapa ny kontakt</h2>
+    <main class="my-4">
+      <div class= "p-3 mb-4 rounded bg-primary-subtle">
+        <h2 class="mb-0 d-flex justify-content-center">Skapa ny kontakt</h2>
       </div>
-      <form id="newContactForm" class="bg-primary-subtle">
-        <div class="mb-3">
-          <label for="firstName" class="form-label">Förnamn</label>
+      <form id="newContactForm" class="bg-primary-subtle my-4 p-4 rounded">
+        <div class="mb-3 ">
+          <label for="firstName" class="form-label ">Förnamn</label>
           <input type="text" class="form-control" id="firstName" />
         </div>
         <div class="mb-3">
@@ -46,7 +46,7 @@
           <input type="text" class="form-control" id="city" />
         </div>
         <label for="category">Kategori</label>
-        <select name="category" id="category">
+        <select class="rounded " name="category" id="category">
           <option value="family">Familj</option>
           <option value="friends">Vänner</option>
           <option value="work">Arbete</option>
