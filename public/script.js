@@ -1,13 +1,18 @@
 console.log("Script loaded")
 
+/* Skapar variabler för formuläret och listan */
 const form = document.getElementById("newContactForm");
 const list = document.getElementById("AddressList");
 
 let editingId = null;
 
+let editingId = null;
+
+/* Skapar en event listener för formulärets submit-event som hanterar inskickning av nya kontakter samt stopar att sidan laddas om */
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
+/* Hämtar värden från formuläret som ska skickas till servern */
     const data = {
         firstName: form.firstName.value,
         lastName: form.lastName.value,
@@ -16,6 +21,7 @@ form.addEventListener("submit", async (e) => {
         postCode: form.postCode.value,
         city: form.city.value,
         category: form.category.value,
+ 
     };
 
   const method = editingId ? "PUT" : "POST";
@@ -23,15 +29,21 @@ form.addEventListener("submit", async (e) => {
 
     await fetch(url, {
     method,
+/* Skapar en post route till backend-endpoint /contacts och skickar det i JSON-format */
+    await fetch("/contacts", {
+    method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
 
   editingId = null;
+  
+  /* Rensar formuläret efter inskickning och använder loadData för att uppdatera listan */
   form.reset();
   loadData();
 });
 
+/* Skapar en funktion som hämtar data från backend och uppdaterar listan */
 async function loadData() {
   const res = await fetch("/contacts");
   if (!res.ok) {
