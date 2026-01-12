@@ -1,3 +1,4 @@
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 console.log("Script loaded");
 
 /* Skapar variabler för formuläret och listan */
@@ -30,6 +31,15 @@ form.addEventListener("submit", async (e) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
+
+  showModal(
+  editingId ? "Kontakt uppdaterad" : "Kontakt skapad",
+  editingId
+    ? "Kontakten har uppdaterats korrekt."
+    : "Kontakten har sparats i adressboken.",
+  "success"
+ );
+
 
   /* Rensar formuläret efter inskickning och använder loadData för att uppdatera listan */
   editingId = null;
@@ -105,6 +115,13 @@ async function loadData() {
     deleteButton.addEventListener("click", async () => {
       if (!confirm("Ta bort kontakten?")) return;
       await fetch(`/contacts/${item.id}`, { method: "DELETE" });
+
+     showModal(
+      "Kontakt borttagen",
+      "Kontakten har tagits bort.",
+      "danger"
+      );
+
       loadData();
     });
 
@@ -114,6 +131,20 @@ async function loadData() {
     li.appendChild(card);
     list.appendChild(li);
   });
+}
+
+function showModal(title, message, type = "success") {
+  const modalEl = document.getElementById("feedbackModal");
+  const modalTitle = document.getElementById("feedbackTitle");
+  const modalBody = document.getElementById("feedbackBody");
+
+  modalTitle.textContent = title;
+  modalBody.textContent = message;
+
+  modalTitle.className = modal-title text-${type};
+
+  const modal = new bootstrap.Modal(modalEl);
+  modal.show();
 }
 
 loadData();
