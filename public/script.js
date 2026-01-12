@@ -140,7 +140,7 @@ function showModal(title, message, type = "success") {
   modalTitle.textContent = title;
   modalBody.textContent = message;
 
-  modalTitle.className = modal-title text-${type};
+  modalTitle.className = `modal-title text-${type}`;
 
   const modal = new bootstrap.Modal(modalEl);
   modal.show();
