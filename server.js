@@ -91,9 +91,10 @@ server.post("/contacts", (req, res) => {
 
 /* Uppdaterar en befintlig kontakt i databasen */
 server.put("/contacts/:id", (req, res) => {
-  const { firstName, lastName, phone, address, postCode, city, category } = req.body;
+  const { firstName, lastName, phone, address, postCode, city, category } =
+    req.body;
   const id = req.params.id;
-  
+
   db.run(
     `UPDATE contacts SET firstName = ?, lastName = ?, phone = ?, address = ?, postCode = ?, city = ?, category = ? WHERE id = ?`,
     [firstName, lastName, phone, address, postCode, city, category, id],
