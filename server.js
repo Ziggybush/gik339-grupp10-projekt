@@ -18,6 +18,7 @@ server.listen(port, () => {
 
 const db = new sqlite3.Database("./contacts.db");
 
+/* Skapar tabellen contacts om den inte redan finns */
 db.run(
   `CREATE TABLE IF NOT EXISTS contacts (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -29,7 +30,7 @@ db.run(
     city TEXT,
     category TEXT NOT NULL)`
 );
-
+/* hämtar alla kontakter ifrån databasen */
 server.get("/contacts", (req, res) => {
   db.all(
     `SELECT
@@ -48,7 +49,7 @@ server.get("/contacts", (req, res) => {
     }
   );
 });
-
+/* hämtar en specifik kontakt från databasen med hjälp av id */
 server.get("/contacts/:id", (req, res) => {
   db.get(
     `SELECT
@@ -71,7 +72,7 @@ server.get("/contacts/:id", (req, res) => {
     }
   );
 });
-
+/* Skapar en ny kontakt i databasen */
 server.post("/contacts", (req, res) => {
   const { firstName, lastName, phone, address, postCode, city, category } =
     req.body;
@@ -88,6 +89,7 @@ server.post("/contacts", (req, res) => {
   );
 });
 
+/* Uppdaterar en befintlig kontakt i databasen */
 server.put("/contacts/:id", (req, res) => {
   const { firstName, lastName, phone, address, postCode, city, category } = req.body;
   const id = req.params.id;
@@ -101,7 +103,7 @@ server.put("/contacts/:id", (req, res) => {
     }
   );
 });
-
+/* Tar bort en kontakt från databasen */
 server.delete("/contacts/:id", (req, res) => {
   db.run(`DELETE FROM contacts WHERE id =?`, [req.params.id], function (err) {
     if (err) return res.status(500).json({ error: "Databas error" });
